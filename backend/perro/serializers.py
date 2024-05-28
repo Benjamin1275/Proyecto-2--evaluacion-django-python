@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import *
+from ..API.models import *
 
 #class GeneroSerializer(serializers.ModelSerializer):
 #    class Meta:
@@ -25,15 +25,12 @@ class ComunaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comuna
         fields = ('idComuna','codigo', 'nombre','provincia')
-
-
-
-
-class PersonaSerializer(serializers.ModelSerializer):
+        
+class PerroSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Persona
-        fields = ('rut', 'dv', 'fechaNacimiento', 'nombre', 'papellido', 'sapellido', 'email','comuna','genero')
-class ViewClienteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ViewCliente
-        fields = ('rut', 'dv',  'nombre', 'papellido', 'sapellido', 'email','comuna','genero')
+        model = Perro
+        fields = ('idPerro','nombre', 'raza','edad','descripcion','fecha_registro','user') #id_refugio
+
+
+
+

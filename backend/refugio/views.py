@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .models import Perro
+from .forms import RefugioForm
+from .models import Refugio
 # Create your views here.
 
 
@@ -35,9 +36,9 @@ def signup(request):
         })
 
 
-def listar_perros(request):
-    perros = Perro.objects.all()
-    return render(request, 'refugio.html', {'perros': perros})
+def listar_refugios(request):
+    refugios = refugio.objects.all()
+    return render(request, 'refugio.html', {'refugios': refugios})
 
 def cerrar_sesion(request):
     logout(request)
@@ -61,46 +62,46 @@ def inicioSesion(request):
             login(request, user)
             return redirect('refugio')
 
-def agregarPerro(request):
+def agregarRefugio(request):
     if request.method == 'GET':
-        return render(request, 'agregarPerro.html', {
-            'form': PerroForm})
+        return render(request, 'agregarRefugio.html', {
+            'form': RefugioForm})
     else:
         try:
-            form = PerroForm(request.POST)
-            newPerro = form.save(commit=False)
-            newPerro.user = request.user
-            newPerro.save()
+            form = RefugioForm(request.POST)
+            newRefugio = form.save(commit=False)
+            newRefugio.user = request.user
+            newRefugio.save()
             return redirect('refugio')
         except ValueError:
-            return render(request, 'agregarPerro.html', {
-                'form': PerroForm,
-                'error': 'Error al guardar el perro'
+            return render(request, 'agregarRefugio.html', {
+                'form': RefugioForm,
+                'error': 'Error al guardar el refugio'
             })
 def refugio(request):
     return render(request, 'refugio.html')
 
-def perro_detail(request, perro_id):
+def info_refugio(request, id_refugio):
     if request.method == 'GET':
-        perro = get_object_or_404(Perro, pk=perro_id)
-        form = PerroForm(instance=perro)
-        return render(request, 'perro_details.html', {'perro': perro, 'form': form})
+        perro = get_object_or_404(Refugio, pk=id_refugio)
+        form = RefugioForm(instance=refugio)
+        return render(request, 'info_refugio.html', {'refugi': refugio, 'form': form})
     else:
         try:
-            perro = get_object_or_404(Perro, pk=perro_id)
-            form = PerroForm(request.POST, instance=perro)
+            perro = get_object_or_404(Refugio, pk=id_refugio)
+            form = RefugioForm(request.POST, instance=refugio)
             form.save()
             return redirect('refugio')
         except ValueError:
-            return render(request, 'perro_details.html', {
-                'perro': perro,
+            return render(request, 'info_refugio.html', {
+                'refugio': refugio,
                 'form': form,
-                'error': 'Error al guardar el perro'
+                'error': 'Error al guardar el refugio'
             })
 
     
-def perro_delete(request, perro_id):
-    perro = get_object_or_404(Perro, pk=perro_id, user=request.user)
+def refugio_delete(request, id_refugio):
+    refugio = get_object_or_404(Refugio, pk=id_refugio, user=request.user)
     #if request.method == 'POST':
-    perro.delete()
+    refugio.delete()
     return redirect('refugio')

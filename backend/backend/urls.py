@@ -1,13 +1,14 @@
 from django.contrib import admin
-from django.urls import path, include
-#from perro import views as perro_views
-#from refugio import views as refugio_views
-
-
+from django.urls import path,include
+from . import views
+from .views_serializer import router
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('refugio/', include('refugio.urls')),
-    #path('perro/', include('perro.urls')),
+    #path('harrys/', admin.site.urls),
+    path('API/', include(router.urls)),
+    path('perro/', include(router.urls)),
+    path('refugio/', include(router.urls)),
 
-
+    path('', views.LoadMenu.as_view()),
+    #path('/', views.LoadMenu.as_view()),
 ]

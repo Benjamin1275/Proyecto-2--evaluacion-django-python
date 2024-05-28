@@ -28,6 +28,20 @@ class Comuna(models.Model):
         return self.nombre
     
 
+class Refugio(models.Model):
+    id_refugio = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=100)
+    telefono = models.CharField(max_length=100)
+    email = models.EmailField()
+    descripcion = models.TextField(blank=True)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+    id_comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.nombre
+    
+
 class Perro(models.Model):
     nombre = models.CharField(max_length=100)
     raza = models.CharField(max_length=100)
@@ -35,4 +49,4 @@ class Perro(models.Model):
     descripcion = models.TextField(blank=True)
     fecha_registro = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # id_refugio = models.ForeignKey(Refugio, on_delete=models.CASCADE) Agregar despues de crear el refugio
+    id_refugio = models.ForeignKey(Refugio, on_delete=models.CASCADE) 

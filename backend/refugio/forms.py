@@ -4,7 +4,7 @@ from .models import CustomUser
 from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator
 import re #Para validar el RUT ya que manipula cadenas basandose en patrones espcificos
-from .models import Perro
+from .models import Refugio
 
 
 
@@ -122,3 +122,7 @@ class CustomUserCreationForm(UserCreationForm):
     
     
     
+class RefugioForm(forms.ModelForm):
+    class Meta:
+        model = Refugio
+        fields = ['id_refugio', 'nombre', 'direccion', 'telefono','email','descripcion','fecha_registro','id_comuna']  # Asegúrate de cambiar estos campos a los que tienes en tu modelo Perro

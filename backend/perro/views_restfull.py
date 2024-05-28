@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from .serializers import RegionSerializer,PersonaSerializer
-from .models import Region,Persona,Comuna
+from ..API.models import Region,Persona,Comuna
 
 class JSONResponse(HttpResponse):
     """
@@ -15,8 +15,8 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
-def rf_harrys(request):
-    return HttpResponse("harrysito es el mas pulento")
+#def rf_harrys(request):
+#    return HttpResponse("harrysito es el mas pulento")
 
 #https://gist.github.com/juque/465814
 @csrf_exempt
