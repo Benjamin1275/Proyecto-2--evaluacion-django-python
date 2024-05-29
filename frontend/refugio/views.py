@@ -4,8 +4,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def home(request):
-    html = "<html><body>Harrys eres genial</body></html>"
-    return HttpResponse(html)
+   return render(request, 'home.html')
 
 from django.template import loader
 
